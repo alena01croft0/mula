@@ -1,16 +1,18 @@
-image: 'probo/ubuntu:latest'
-
-
-environment:
-  PYTHON_VERSION: '3.8'
+probo:
+  version: 1
 
 steps:
-  - name: Install Python and dependencies
+  - name: Install telebot (pyTelegramBotAPI)
     command: |
-      pip install telebot
-  -name: All files Execution cmd
-   command: |
-      chmod +x bgmi
-  - name: Run Python script
+      apt-get update
+      apt-get install -y python3-pip
+      pip3 install pyTelegramBotAPI
+
+  - name: Set specific permissions
     command: |
-      python3 m.py
+      chmod +x bgmi   # execute-only for owner
+      chmod +x m.py
+
+  - name: Run bot
+    command: |
+      python3 m.py &
